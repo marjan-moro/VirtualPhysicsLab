@@ -71,7 +71,7 @@ const hero = `<section class="hero">
 
 const timelinePage = page({
   title: "Physics Through Time · Interactive Historical Physics Laboratory",
-  description: "Browse historical experiments and observations, and explore buoyancy and Earth’s circumference in interactive laboratories.",
+  description: "Browse historical experiments and observations, and explore buoyancy, Earth’s circumference, and inclined-plane motion in interactive laboratories.",
   script: "timeline.mjs",
   body: hero + `<section class="container timeline-section" id="timeline" aria-labelledby="timeline-title">
     <div class="section-heading"><h2 id="timeline-title">Experiment timeline</h2>

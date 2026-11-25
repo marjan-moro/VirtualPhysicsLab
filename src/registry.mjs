@@ -44,6 +44,7 @@ export const kinds = {
 export const contentLoaders = {
   archimedes: () => import("./archimedes-content.mjs"),
   eratosthenes: () => import("./eratosthenes-content.mjs"),
+  galileo: () => import("./galileo-content.mjs"),
 };
 
 export const laboratories = {
@@ -51,6 +52,10 @@ export const laboratories = {
   eratosthenes: {
     load: () => import("./eratosthenes-lab.mjs"),
     stylesheet: "eratosthenes-lab.css",
+  },
+  galileo: {
+    load: () => import("./galileo-lab.mjs"),
+    stylesheet: "galileo-lab.css",
   },
 };
 

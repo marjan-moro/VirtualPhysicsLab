@@ -1,0 +1,71 @@
+.galileo-lab .galileo-controls {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.galileo-lab .galileo-controls button {
+  justify-self: start;
+}
+
+.galileo-playback {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: .6rem 1rem;
+  flex-wrap: wrap;
+  margin-block: .8rem .25rem;
+}
+
+.galileo-playback select {
+  min-width: 6rem;
+}
+
+.galileo-ramp {
+  max-width: 35rem;
+  margin-inline: auto;
+}
+
+.galileo-support {
+  fill: var(--accent-soft);
+  stroke: var(--line);
+  stroke-width: 1.5px;
+}
+
+.galileo-ground {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.4px;
+}
+
+.galileo-track {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5px;
+}
+
+.galileo-marks {
+  stroke: var(--muted);
+  stroke-width: 1.3px;
+}
+
+.galileo-ball {
+  fill: light-dark(#b05b2f, #df9268);
+  stroke: light-dark(#68361e, #ffdac5);
+  stroke-width: 1.5px;
+}
+
+.galileo-ball-mark {
+  fill: none;
+  stroke: light-dark(white, #411d10);
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
+
+.galileo-diagram-label {
+  fill: var(--muted);
+}
+
+@container (max-width: 500px) {
+  .galileo-lab .galileo-diagram-label {
+    font-size: 16px;
+  }
+}

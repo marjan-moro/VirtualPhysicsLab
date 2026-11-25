@@ -1,6 +1,6 @@
 # Physics Through Time
 
-Physics Through Time is a historical physics timeline and browser-based virtual laboratory. Browse milestones by era, scientific category, difficulty, and lab availability. The Archimedes lab explores static buoyancy. The Eratosthenes lab uses local-noon shadows at two sites to predict observations and estimate Earth’s circumference.
+Physics Through Time is a historical physics timeline and browser-based virtual laboratory. Browse milestones by era, scientific category, difficulty, and lab availability. The three published labs cover static buoyancy, estimating Earth’s circumference from shadows, and accelerated motion on an inclined plane.
 
 ## Develop
 
@@ -12,7 +12,7 @@ npm run build
 npm run dev
 ```
 
-Open `http://localhost:3000/` for the timeline, `http://localhost:3000/experiments/archimedes/#virtual-lab` for the buoyancy lab, or `http://localhost:3000/experiments/eratosthenes/#virtual-lab` for the shadow measurements. Run `npm run build` after edits while the preview server is running, then reload the page.
+Open `http://localhost:3000/` for the timeline. The lab routes are `/experiments/archimedes/#virtual-lab`, `/experiments/eratosthenes/#virtual-lab`, and `/experiments/galileo/#virtual-lab`. Run `npm run build` after edits while the preview server is running, then reload the page.
 
 ## Host or link from a website
 
@@ -52,6 +52,10 @@ If the host permits framing, use the same URL with a descriptive iframe title an
 | `src/eratosthenes-content.mjs` | Sourced chapter on historical accounts, geometry, and assumptions |
 | `src/eratosthenes.mjs` | Forward shadow prediction and inverse geometry in SI units |
 | `src/eratosthenes-lab.mjs`, `src/eratosthenes-lab.css` | Shadow measurement controls and diagrams |
+| `src/galileo-content.mjs` | Sourced account of the inclined plane and the kinematic and rolling models |
+| `src/galileo.mjs` | Incline dynamics, analytic solution, finish event, energy and plot data |
+| `src/galileo-lab.mjs`, `src/galileo-lab.css` | Incline visualization, playback, controls, and trial measurements |
+| `src/fixed-step-clock.mjs` | Fixed physics ticks independent of render-frame pacing |
 | `src/lab-tools.mjs` | Shared plot rendering, cursor sampling, and CSV export |
 | `tests/` | Registry, physics, and integration checks |
 
@@ -59,8 +63,9 @@ The site builds published lessons into shareable directories. Planned experiment
 
 ## Current scope
 
-- Archimedes and Eratosthenes have published lessons and laboratories. The other 72 catalog entries are planned milestones.
+- Archimedes, Eratosthenes, and Galileo have published lessons and laboratories. The other 71 catalog entries are planned milestones.
 - The Archimedes model solves static vertical force balance for a rigid upright cuboid in a stationary, uniform-density liquid with constant gravity and a fixed free surface. The lesson documents the geometry, sign conventions, and a worked analytical check.
 - Dynamic buoyancy, drag, rotation, additional geometries, and finite-tank effects remain future stages.
-- The Eratosthenes lab models a spherical Earth, two sites on a shared meridian, and parallel sunlight at local solar noon. The lesson discusses how this idealization differs from the ancient accounts. Both labs keep measurements in the current page session and support CSV export.
-- Galileo’s inclined plane and Hooke’s elasticity are the next laboratory priorities.
+- The Eratosthenes lab models a spherical Earth, two sites on a shared meridian, and parallel sunlight at local solar noon. The lesson discusses how this idealization differs from the ancient accounts.
+- The Galileo lab compares an ideal uniform sphere rolling without slipping with a frictionless slider, both released from rest. A fixed 1/120 s physics step drives playback regardless of frame rate. The model assumes constant gravity and incline angle and ends the calculation at the marked finish.
+- All three labs keep measurements in the current page session and support CSV export. Hooke’s elasticity and Young’s double slit are the next laboratory priorities.

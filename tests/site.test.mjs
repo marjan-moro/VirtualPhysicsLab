@@ -31,7 +31,8 @@ test("the static build has navigable published routes and all local assets", asy
   const home = await readFile(pages[0], "utf8");
   assert.equal((home.match(/class="experiment-card"/g) ?? []).length, timeline.length);
   assert.match(home, /href="\.\/experiments\/eratosthenes\/"/);
-  assert.doesNotMatch(home, /href="\.\/experiments\/galileo\//);
+  assert.match(home, /href="\.\/experiments\/galileo\/"/);
+  assert.doesNotMatch(home, /href="\.\/experiments\/hooke\//);
   for (const { slug, laboratory } of published) {
     if (!laboratory) continue;
     const lesson = await readFile(new URL(`experiments/${slug}/index.html`, dist), "utf8");
@@ -44,7 +45,11 @@ test("the static build has navigable published routes and all local assets", asy
   }
   const archimedes = await readFile(new URL("experiments/archimedes/index.html", dist), "utf8");
   const eratosthenes = await readFile(new URL("experiments/eratosthenes/index.html", dist), "utf8");
+  const galileo = await readFile(new URL("experiments/galileo/index.html", dist), "utf8");
   assert.match(archimedes, /href="\.\.\/\.\.\/experiments\/eratosthenes\/"/);
   assert.match(eratosthenes, /href="\.\.\/\.\.\/experiments\/archimedes\/"/);
+  assert.match(eratosthenes, /href="\.\.\/\.\.\/experiments\/galileo\/"/);
+  assert.match(galileo, /href="\.\.\/\.\.\/experiments\/eratosthenes\/"/);
   assert.doesNotMatch(archimedes, /eratosthenes-lab\.css/);
+  assert.doesNotMatch(eratosthenes, /galileo-lab\.css/);
 });

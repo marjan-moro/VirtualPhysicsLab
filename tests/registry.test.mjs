@@ -2,11 +2,11 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { chronological, filterExperiments, formatDate, neighbors, relatedExperiments, timeline, validateRegistry } from "../src/registry.mjs";
 
-test("catalog covers both published labs and all seven eras", () => {
+test("catalog covers the three published labs and all seven eras", () => {
   assert.deepEqual(validateRegistry(timeline), []);
   assert.ok(timeline.length >= 70);
   assert.equal(new Set(timeline.map(({ era }) => era)).size, 7);
-  assert.deepEqual(timeline.filter(({ laboratory }) => laboratory).map(({ id }) => id), ["archimedes", "eratosthenes"]);
+  assert.deepEqual(timeline.filter(({ laboratory }) => laboratory).map(({ id }) => id), ["archimedes", "eratosthenes", "galileo"]);
 });
 
 test("validation catches duplicate keys, a year zero, and missing relations", () => {
@@ -30,6 +30,7 @@ test("search combines accent-insensitive terms with independent filters", () => 
   assert.ok(filterExperiments(timeline, { query: "romer light" }).length > 0);
   assert.equal(filterExperiments(timeline, { era: "ancient", category: "fluids", lab: "available", difficulty: "introductory" })[0]?.id, "archimedes");
   assert.deepEqual(filterExperiments(timeline, { query: "syene shadow", lab: "available" }).map(({ id }) => id), ["eratosthenes"]);
+  assert.deepEqual(filterExperiments(timeline, { query: "rolling incline", lab: "available" }).map(({ id }) => id), ["galileo"]);
   assert.equal(filterExperiments(timeline, { era: "contemporary", lab: "available" }).length, 0);
   assert.equal(filterExperiments(timeline, { query: "nonexistent physics title" }).length, 0);
 });
@@ -38,10 +39,13 @@ test("navigation skips planned experiments and keeps related entries detectable"
   const published = { id: "example", title: "Published lesson", status: "published", year: 2000 };
   const archimedes = timeline.find(({ id }) => id === "archimedes");
   const eratosthenes = timeline.find(({ id }) => id === "eratosthenes");
+  const galileo = timeline.find(({ id }) => id === "galileo");
   assert.equal(neighbors(timeline, "archimedes").next, eratosthenes);
   assert.equal(neighbors(timeline, "eratosthenes").previous, archimedes);
-  assert.equal(neighbors(timeline, "eratosthenes").next, undefined);
-  assert.equal(neighbors([...timeline, published], "eratosthenes").next, published);
+  assert.equal(neighbors(timeline, "eratosthenes").next, galileo);
+  assert.equal(neighbors(timeline, "galileo").previous, eratosthenes);
+  assert.equal(neighbors(timeline, "galileo").next, undefined);
+  assert.equal(neighbors([...timeline, published], "galileo").next, published);
   assert.deepEqual(neighbors(timeline, "missing"), {});
   assert.equal(relatedExperiments(timeline, archimedes).length, archimedes.related.length);
 });

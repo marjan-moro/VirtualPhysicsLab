@@ -36,6 +36,8 @@ The [Archimedes solver](../src/archimedes.mjs) illustrates a static model. It ex
 
 Use an exact expression if practical. The [Eratosthenes solver](../src/eratosthenes.mjs) illustrates a measurement-based experiment with separate prediction and inference functions. For a dynamic lab, define timestep and initial and boundary conditions in the physics module. Keep rendering pace separate from numerical stepping. For a stochastic lab, document how samples are generated and use a controlled random seed in validation tests where applicable.
 
+The [Galileo solver](../src/galileo.mjs) advances a constant-acceleration state and shortens the last tick to resolve the finish event. Its lab uses the [fixed-step clock](../src/fixed-step-clock.mjs) to translate animation timestamps and playback speed into physics ticks. Call `resync()` after pausing or changing playback speed and `reset()` when starting over. The clock limits catch-up after a long frame to 250 ms of wall time. This affects playback pacing and leaves each physics update at the configured step.
+
 ## 4. Mount the laboratory
 
 Add a browser module whose named export `mountLab(root)` mounts the lab in the shared experiment page’s container. Register a `{ load: () => import("./my-lab.mjs") }` entry in `laboratories` under the exact key assigned to the catalog entry’s `laboratory` field. The shared page supplies the lesson shell, lab mount, and shared `lab.css`. To add styles just for that lab, include the filename as `stylesheet` in the same registry entry. The [Archimedes lab](../src/lab.mjs) and [Eratosthenes lab](../src/eratosthenes-lab.mjs) show how to reuse layout, labeled inputs, measurement tables, and feedback with different visualizations.
