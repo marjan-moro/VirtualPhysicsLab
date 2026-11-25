@@ -1,13 +1,13 @@
 import { cp, mkdir, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { categories, contentLoaders, difficulties, eras, formatDate, kinds, neighbors, relatedExperiments, timeline, validateRegistry } from "../src/registry.mjs";
+import { categories, contentLoaders, difficulties, eras, formatDate, kinds, laboratories, neighbors, relatedExperiments, timeline, validateRegistry } from "../src/registry.mjs";
 import { escapeHTML, experimentCard, experimentHref, milestoneSections, option, referenceLinks } from "../src/markup.mjs";
 
 const dist = new URL("../dist/", import.meta.url);
 const errors = validateRegistry(timeline);
 if (errors.length) throw new Error(`Invalid experiment registry:\n${errors.join("\n")}`);
 
-function page({ title, description, root = "./", body, script, lab = false }) {
+function page({ title, description, root = "./", body, script, stylesheets = [] }) {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@ function page({ title, description, root = "./", body, script, lab = false }) {
   <meta name="color-scheme" content="light dark">
   <title>${escapeHTML(title)}</title>
   <link rel="stylesheet" href="${root}assets/site.css">
-  ${lab ? `<link rel="stylesheet" href="${root}assets/lab.css">` : ""}
+  ${stylesheets.map((stylesheet) => `<link rel="stylesheet" href="${root}assets/${escapeHTML(stylesheet)}">`).join("\n  ")}
   <script type="module" src="${root}assets/${script}"></script>
 </head>
 <body>
@@ -71,7 +71,7 @@ const hero = `<section class="hero">
 
 const timelinePage = page({
   title: "Physics Through Time · Interactive Historical Physics Laboratory",
-  description: "Browse historical experiments and observations, and explore Archimedes’ principle in an interactive buoyancy laboratory.",
+  description: "Browse historical experiments and observations, and explore buoyancy and Earth’s circumference in interactive laboratories.",
   script: "timeline.mjs",
   body: hero + `<section class="container timeline-section" id="timeline" aria-labelledby="timeline-title">
     <div class="section-heading"><h2 id="timeline-title">Experiment timeline</h2>
@@ -102,6 +102,8 @@ function referencesList(references) {
 
 function experimentPage(entry, content) {
   const root = "../../";
+  const laboratory = laboratories[entry.laboratory];
+  const stylesheets = laboratory ? ["lab.css", laboratory.stylesheet].filter(Boolean) : [];
   const { previous, next } = neighbors(timeline, entry.id);
   const related = relatedExperiments(timeline, entry);
   const sectionIds = new Set();
@@ -117,7 +119,7 @@ function experimentPage(entry, content) {
     description: entry.description,
     root,
     script: "experiment.mjs",
-    lab: Boolean(entry.laboratory),
+    stylesheets,
     body: `<header class="lesson-header"><div class="container">
       <a class="breadcrumb" href="${root}#timeline">← Experiment timeline</a>
       <div class="lesson-meta">${escapeHTML(formatDate(entry))} · ${escapeHTML(entry.scientists.join(", "))} · ${kinds[entry.kind]}</div>

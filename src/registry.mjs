@@ -43,10 +43,15 @@ export const kinds = {
 
 export const contentLoaders = {
   archimedes: () => import("./archimedes-content.mjs"),
+  eratosthenes: () => import("./eratosthenes-content.mjs"),
 };
 
-export const labLoaders = {
-  archimedes: () => import("./lab.mjs"),
+export const laboratories = {
+  archimedes: { load: () => import("./lab.mjs") },
+  eratosthenes: {
+    load: () => import("./eratosthenes-lab.mjs"),
+    stylesheet: "eratosthenes-lab.css",
+  },
 };
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -79,7 +84,7 @@ export function validateRegistry(entries) {
     if (!Array.isArray(entry.keywords) || !Array.isArray(entry.related)) report("missing keywords or related entries");
     if (!["published", "planned"].includes(entry.status)) report("unknown publication status");
     if (entry.status === "published" && !Object.hasOwn(contentLoaders, entry.id)) report("missing published content");
-    if (entry.laboratory && (entry.status !== "published" || !Object.hasOwn(labLoaders, entry.laboratory))) {
+    if (entry.laboratory && (entry.status !== "published" || !Object.hasOwn(laboratories, entry.laboratory))) {
       report("missing lab module or unpublished lab");
     }
     if (entry.thumbnail && !["src", "alt", "credit", "license", "source"].every((key) => entry.thumbnail[key])) {

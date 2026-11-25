@@ -1,4 +1,4 @@
-import { labLoaders } from "./registry.mjs";
+import { laboratories } from "./registry.mjs";
 
 const levelControls = document.querySelector("#education-level");
 const sections = document.querySelectorAll("[data-level]");
@@ -25,7 +25,7 @@ revealHash();
 const lab = document.querySelector("[data-laboratory]");
 if (lab) {
   try {
-    const { mountLab } = await labLoaders[lab.dataset.laboratory]();
+    const { mountLab } = await laboratories[lab.dataset.laboratory].load();
     mountLab(lab);
   } catch (error) {
     console.error(error);

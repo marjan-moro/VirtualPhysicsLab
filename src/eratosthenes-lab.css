@@ -1,0 +1,156 @@
+.earth-lab {
+  --earth-sun: light-dark(#9a4e13, #fac68a);
+  --earth-north: var(--accent);
+  --earth-south: light-dark(#665298, #c9adff);
+  --earth-arc: light-dark(#993c24, #ffa486);
+}
+
+.earth-lab .earth-mode-fields {
+  display: grid;
+  gap: .65rem;
+}
+
+.earth-lab .earth-modes label {
+  display: flex;
+  align-items: center;
+  gap: .38rem;
+  color: var(--ink);
+  font-size: .88rem;
+  min-height: 1.7rem;
+  cursor: pointer;
+}
+
+.earth-lab .earth-modes input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.earth-diagram {
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.earth-body {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 1.55px;
+}
+
+.earth-origin,
+.earth-radius-line {
+  fill: none;
+  stroke: var(--muted);
+}
+
+.earth-origin {
+  stroke-dasharray: 3 4;
+  opacity: .7;
+}
+
+.earth-ray {
+  fill: none;
+  stroke: var(--earth-sun);
+  stroke-width: 1.4px;
+}
+
+.earth-ray-tip {
+  fill: var(--earth-sun);
+}
+
+.earth-graphic-label,
+.earth-center {
+  fill: var(--ink);
+}
+
+.earth-south {
+  color: var(--earth-south);
+  fill: var(--earth-south);
+}
+
+.earth-north {
+  color: var(--earth-north);
+  fill: var(--earth-north);
+}
+
+.earth-baseline {
+  color: var(--earth-arc);
+  fill: none;
+  stroke: var(--earth-arc);
+  stroke-width: 2.7px;
+}
+
+.earth-key {
+  display: flex;
+  gap: .25rem .7rem;
+  flex-wrap: wrap;
+  margin-block: .35rem 0;
+  color: var(--muted);
+  font-size: .79rem;
+}
+
+.earth-key span {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+.earth-key i {
+  display: inline-block;
+  width: .58rem;
+  height: .58rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.earth-key .earth-baseline {
+  width: .7rem;
+  height: .18rem;
+  border-radius: .2rem;
+}
+
+.earth-observations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .6rem;
+  margin-top: .75rem;
+}
+
+.earth-shadow {
+  min-width: 0;
+}
+
+.earth-shadow figcaption {
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.earth-shadow strong {
+  color: var(--ink);
+}
+
+.earth-ground {
+  stroke: var(--muted);
+  stroke-width: 1px;
+}
+
+.earth-gnomon {
+  stroke: var(--ink);
+  stroke-width: 3.5px;
+}
+
+.earth-shadow-line {
+  stroke: var(--earth-north);
+  stroke-width: 4px;
+}
+
+@container (max-width: 500px) {
+  .earth-lab .earth-diagram text {
+    font-size: 14px;
+  }
+}
+
+@container (max-width: 325px) {
+  .earth-observations {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

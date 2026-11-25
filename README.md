@@ -1,6 +1,6 @@
 # Physics Through Time
 
-Physics Through Time is a historical physics timeline and browser-based virtual laboratory. Browse milestones by era, scientific category, difficulty, and lab availability. The Archimedes lesson includes a static hydrostatics lab with parameter controls, force and pressure diagrams, four analytical plots, measurement recording, CSV export, and challenges.
+Physics Through Time is a historical physics timeline and browser-based virtual laboratory. Browse milestones by era, scientific category, difficulty, and lab availability. The Archimedes lab explores static buoyancy. The Eratosthenes lab uses local-noon shadows at two sites to predict observations and estimate Earth’s circumference.
 
 ## Develop
 
@@ -12,7 +12,7 @@ npm run build
 npm run dev
 ```
 
-Open `http://localhost:3000/` for the timeline and `http://localhost:3000/experiments/archimedes/#virtual-lab` for the buoyancy lab. Run `npm run build` after edits while the preview server is running, then reload the page.
+Open `http://localhost:3000/` for the timeline, `http://localhost:3000/experiments/archimedes/#virtual-lab` for the buoyancy lab, or `http://localhost:3000/experiments/eratosthenes/#virtual-lab` for the shadow measurements. Run `npm run build` after edits while the preview server is running, then reload the page.
 
 ## Host or link from a website
 
@@ -49,6 +49,9 @@ If the host permits framing, use the same URL with a descriptive iframe title an
 | `src/archimedes-content.mjs` | Sourced lesson sections, equations, and model assumptions |
 | `src/archimedes.mjs` | DOM-independent parameters, solver, and plot data |
 | `src/lab.mjs` | Archimedes controls, tank visualization, and measurement collection |
+| `src/eratosthenes-content.mjs` | Sourced chapter on historical accounts, geometry, and assumptions |
+| `src/eratosthenes.mjs` | Forward shadow prediction and inverse geometry in SI units |
+| `src/eratosthenes-lab.mjs`, `src/eratosthenes-lab.css` | Shadow measurement controls and diagrams |
 | `src/lab-tools.mjs` | Shared plot rendering, cursor sampling, and CSV export |
 | `tests/` | Registry, physics, and integration checks |
 
@@ -56,7 +59,8 @@ The site builds published lessons into shareable directories. Planned experiment
 
 ## Current scope
 
-- Archimedes is the first published lesson and the only available laboratory. The other 73 catalog entries are planned milestones.
+- Archimedes and Eratosthenes have published lessons and laboratories. The other 72 catalog entries are planned milestones.
 - The Archimedes model solves static vertical force balance for a rigid upright cuboid in a stationary, uniform-density liquid with constant gravity and a fixed free surface. The lesson documents the geometry, sign conventions, and a worked analytical check.
-- Dynamic motion, drag, rotation, additional geometries, and finite-tank effects remain future stages. Measurements are ideal model outputs held in the current page session and can be saved via CSV.
-- The next laboratory priorities are Eratosthenes’ Earth measurement, Galileo’s inclined plane, and Hooke’s elasticity.
+- Dynamic buoyancy, drag, rotation, additional geometries, and finite-tank effects remain future stages.
+- The Eratosthenes lab models a spherical Earth, two sites on a shared meridian, and parallel sunlight at local solar noon. The lesson discusses how this idealization differs from the ancient accounts. Both labs keep measurements in the current page session and support CSV export.
+- Galileo’s inclined plane and Hooke’s elasticity are the next laboratory priorities.

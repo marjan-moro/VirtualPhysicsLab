@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { test } from "node:test";
-import { timeline } from "../src/registry.mjs";
+import { laboratories, timeline } from "../src/registry.mjs";
 
 test("the static build has navigable published routes and all local assets", async () => {
   const root = new URL("../", import.meta.url);
@@ -30,6 +30,21 @@ test("the static build has navigable published routes and all local assets", asy
   }
   const home = await readFile(pages[0], "utf8");
   assert.equal((home.match(/class="experiment-card"/g) ?? []).length, timeline.length);
-  assert.doesNotMatch(home, /href="\.\/experiments\/eratosthenes\//);
-  assert.match(await readFile(pages[1], "utf8"), /id="virtual-lab"/);
+  assert.match(home, /href="\.\/experiments\/eratosthenes\/"/);
+  assert.doesNotMatch(home, /href="\.\/experiments\/galileo\//);
+  for (const { slug, laboratory } of published) {
+    if (!laboratory) continue;
+    const lesson = await readFile(new URL(`experiments/${slug}/index.html`, dist), "utf8");
+    const { load, stylesheet } = laboratories[laboratory];
+    assert.match(lesson, /id="virtual-lab"/);
+    assert.ok(lesson.includes(`data-laboratory="${laboratory}"`));
+    assert.ok(lesson.includes('href="../../assets/lab.css"'));
+    if (stylesheet) assert.ok(lesson.includes(`href="../../assets/${stylesheet}"`));
+    assert.equal(typeof (await load()).mountLab, "function");
+  }
+  const archimedes = await readFile(new URL("experiments/archimedes/index.html", dist), "utf8");
+  const eratosthenes = await readFile(new URL("experiments/eratosthenes/index.html", dist), "utf8");
+  assert.match(archimedes, /href="\.\.\/\.\.\/experiments\/eratosthenes\/"/);
+  assert.match(eratosthenes, /href="\.\.\/\.\.\/experiments\/archimedes\/"/);
+  assert.doesNotMatch(archimedes, /eratosthenes-lab\.css/);
 });
