@@ -1,0 +1,518 @@
+.lab {
+  --lab-water: color-mix(in srgb, #54aca7 23%, var(--surface));
+  --lab-edge: color-mix(in srgb, #408985 78%, var(--ink));
+  --lab-forces-weight: color-mix(in srgb, #cb6e42 70%, var(--ink));
+  --lab-forces-buoyancy: color-mix(in srgb, #3d9d99 69%, var(--ink));
+  --lab-error-color: light-dark(#a93d27, #ffab94);
+  container-type: inline-size;
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.lab [hidden] {
+  display: none;
+}
+
+.lab-bench {
+  display: grid;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.7fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.lab-panel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: .875rem;
+  background: var(--surface);
+  padding: clamp(.8rem, 2.3vw, 1.5rem);
+}
+
+.lab-panel h3 {
+  margin: 0 0 .8rem;
+  font-size: 1.25rem;
+}
+
+.lab-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .8rem 1rem;
+  flex-wrap: wrap;
+  margin-bottom: .75rem;
+}
+
+.lab-card-heading h3 {
+  margin-bottom: 0;
+}
+
+.lab-controls {
+  display: grid;
+  gap: .85rem;
+}
+
+.lab-controls h3 {
+  margin: 0;
+}
+
+.lab-controls fieldset {
+  display: grid;
+  gap: .6rem;
+  border: 0;
+  min-inline-size: 0;
+  margin: 0;
+  padding: .45rem 0 0;
+}
+
+.lab-controls legend {
+  padding: 0;
+  color: var(--muted);
+  font-size: .775rem;
+  font-weight: 650;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.lab-field {
+  display: block;
+  color: var(--ink);
+  font-size: .83rem;
+  font-weight: 600;
+}
+
+.lab-field span {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.lab-field input[type="number"],
+.lab-field select {
+  display: block;
+  width: 100%;
+  height: 2.35rem;
+  min-width: 0;
+  margin-top: .2rem;
+  padding: 0 .55rem;
+  border: 1px solid var(--line);
+  border-radius: .4rem;
+  background: var(--page);
+  color: var(--ink);
+  font: inherit;
+  font-size: .9rem;
+}
+
+.lab-field input[aria-invalid="true"] {
+  border-color: var(--lab-error-color);
+}
+
+.lab-dimensions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .35rem;
+}
+
+.lab-dimensions input[type="number"] {
+  padding-inline: .3rem;
+}
+
+.lab-range {
+  accent-color: var(--accent);
+  display: block;
+  width: 100%;
+  min-height: 1.65rem;
+  margin: 0;
+}
+
+.lab-help,
+.lab-error,
+.lab-figure figcaption {
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.lab-error {
+  color: var(--lab-error-color);
+}
+
+.lab-error:empty {
+  display: none;
+}
+
+.lab-actions,
+.lab-toggles {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+
+.lab-controls .lab-actions {
+  align-items: stretch;
+}
+
+.lab button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .43rem .68rem;
+  min-height: 2.25rem;
+  border: 1px solid var(--line);
+  border-radius: .4rem;
+  color: var(--ink);
+  background: var(--page);
+  font: inherit;
+  font-weight: 650;
+  font-size: .82rem;
+  cursor: pointer;
+}
+
+.lab button:hover:not(:disabled) {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.lab button.lab-primary {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.lab button:disabled {
+  color: var(--muted);
+  opacity: .65;
+  cursor: default;
+}
+
+.lab :is(button, select, input):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.lab-toggles {
+  font-size: .82rem;
+  gap: .4rem .8rem;
+}
+
+.lab-toggles label {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  min-height: 1.9rem;
+  cursor: pointer;
+}
+
+.lab-toggles input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.lab-figure {
+  margin: 0;
+}
+
+.lab-figure figcaption {
+  margin-top: .4rem;
+}
+
+.lab-pressure-scale {
+  margin-top: .35rem;
+  color: var(--lab-edge);
+}
+
+.lab-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+}
+
+.lab-diagram text,
+.lab-chart text {
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.lab-scene-bg {
+  fill: var(--page);
+}
+
+.lab-grid-line {
+  stroke: var(--line);
+  stroke-opacity: .55;
+  stroke-width: .65;
+}
+
+.lab-water {
+  fill: var(--lab-water);
+}
+
+.lab-tank-wall,
+.lab-waterline,
+.lab-pressure {
+  stroke: var(--lab-edge);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.lab-waterline-block {
+  stroke: var(--lab-edge);
+  stroke-dasharray: 5 4;
+}
+
+.lab-block {
+  fill: color-mix(in srgb, #c28b5e 48%, var(--surface));
+  stroke: var(--lab-forces-weight);
+  stroke-width: 1.7;
+}
+
+.lab-surface-label,
+.lab-pressure-tip {
+  fill: var(--lab-edge);
+}
+
+.lab-weight {
+  fill: var(--lab-forces-weight);
+  stroke: var(--lab-forces-weight);
+}
+
+.lab-buoyancy {
+  fill: var(--lab-forces-buoyancy);
+  stroke: var(--lab-forces-buoyancy);
+}
+
+.lab-weight text,
+.lab-buoyancy text {
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 2.8;
+  stroke-linejoin: round;
+}
+
+.lab-force-line {
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.lab-results {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .4rem;
+  margin: .8rem 0;
+}
+
+.lab-results > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: .5rem .55rem;
+  background: var(--page);
+  border: 1px solid var(--line);
+  border-radius: .45rem;
+}
+
+.lab-results dt {
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.lab-results dd {
+  margin: .3rem 0 0;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(.88rem, 1.65vw, 1.15rem);
+  line-height: 1.1;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+#lab-behavior {
+  color: var(--ink);
+  font-weight: 650;
+  margin-bottom: .3rem;
+}
+
+.lab-chart {
+  margin-top: .75rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  overflow-x: auto;
+  background: var(--page);
+}
+
+.lab-chart svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.lab-chart text {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.lab-chart .lab-axis-label {
+  fill: var(--ink);
+  font-weight: 650;
+}
+
+.lab-chart-grid {
+  stroke: var(--line);
+  stroke-dasharray: 3 3;
+}
+
+.lab-chart-axes {
+  stroke: var(--muted);
+  fill: none;
+}
+
+.lab-chart-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.6;
+}
+
+.lab-chart-current {
+  fill: var(--lab-forces-weight);
+  stroke: var(--surface);
+  stroke-width: 1.3;
+}
+
+.lab-chart-sample {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 1.8;
+}
+
+.lab-plot select {
+  max-width: 100%;
+}
+
+.lab-plot-controls {
+  display: grid;
+  grid-template-columns: minmax(8rem, .8fr) minmax(10rem, 1fr);
+  align-items: center;
+  gap: .6rem 1.2rem;
+  margin-top: .65rem;
+}
+
+.lab-plot-controls p,
+.lab-model-key {
+  color: var(--muted);
+  margin: 0;
+  font-size: .82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-model-key span {
+  color: var(--lab-forces-weight);
+}
+
+.lab-table-scroll {
+  overflow: auto;
+  margin-top: .65rem;
+}
+
+.lab-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+  text-align: right;
+  font-size: .83rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.lab-table caption {
+  text-align: left;
+  color: var(--muted);
+  margin-bottom: .4rem;
+  white-space: normal;
+}
+
+.lab-table :is(th, td) {
+  border-bottom: 1px solid var(--line);
+  padding: .45rem .6rem;
+}
+
+.lab-table thead {
+  background: var(--page);
+}
+
+.lab-table th:first-child {
+  text-align: left;
+}
+
+.lab-challenges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: .6rem;
+}
+
+.lab-challenges article {
+  border: 1px solid var(--line);
+  border-radius: .55rem;
+  padding: .7rem;
+  background: var(--page);
+}
+
+.lab-challenges h4 {
+  margin: 0 0 .4rem;
+  font-size: .95rem;
+}
+
+.lab-challenges p {
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.45;
+  margin: 0 0 .55rem;
+}
+
+.lab-challenges .lab-challenge-response {
+  margin: .55rem 0 0;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@container (max-width: 740px) {
+  .lab-bench {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lab-controls fieldset:first-of-type {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (max-width: 500px) {
+  .lab-diagram text {
+    font-size: 20px;
+  }
+
+  .lab-controls fieldset:first-of-type {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lab-results {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lab-plot-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lab-plot .lab-card-heading > .lab-field {
+    width: 100%;
+  }
+
+  .lab-field input[type="number"],
+  .lab-field select {
+    font-size: 1rem;
+  }
+}
